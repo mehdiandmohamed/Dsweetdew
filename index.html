@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dsweetdew - Handmade Tiramisu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="logo">
+    <img src="logo.png" alt="Dsweetdew Logo" width="100" />
+  </div>
+  <h1>Dsweetdew</h1>
+  <p class="subtitle">Handmade tiramisu with organic fruits</p>
+  <p class="note">Each order is made fresh – small ($5.99), medium ($7.99), large ($9.99)</p>
+
+  <div class="grid">
+    <div class="item">
+      <img src="classique.jpg" alt="Classique">
+      <h2>Classique</h2>
+      <p>Original Italian flavor</p>
+      <button class="btn" onclick="openForm('Classique')">Order Now</button>
+    </div>
+    <div class="item">
+      <img src="lemon.jpg" alt="Lemon">
+      <h2>Lemon</h2>
+      <p>Fresh and tangy</p>
+      <button class="btn" onclick="openForm('Lemon')">Order Now</button>
+    </div>
+    <div class="item">
+      <img src="lotus.jpg" alt="Lotus">
+      <h2>Lotus</h2>
+      <p>Caramelized biscuit flavor</p>
+      <button class="btn" onclick="openForm('Lotus')">Order Now</button>
+    </div>
+    <div class="item">
+      <img src="strawberry.jpg" alt="Strawberry">
+      <h2>Strawberry</h2>
+      <p>Sweet berry delight</p>
+      <button class="btn" onclick="openForm('Strawberry')">Order Now</button>
+    </div>
+    <div class="item">
+      <img src="mango.jpg" alt="Mango">
+      <h2>Mango</h2>
+      <p>Tropical and creamy</p>
+      <button class="btn" onclick="openForm('Mango')">Order Now</button>
+    </div>
+    <div class="item">
+      <img src="blueberry.jpg" alt="Blueberry">
+      <h2>Blueberry</h2>
+      <p>Rich and fruity</p>
+      <button class="btn" onclick="openForm('Blueberry')">Order Now</button>
+    </div>
+  </div>
+
+  <!-- Order Form for Formspree -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('orderModal').style.display='none'">&times;</span>
+      <h2>Place Your Order</h2>
+      <form action="https://formspree.io/f/xqabzbwv" method="POST" onsubmit="return showThankYouMessage()">
+        <div id="productContainer">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" name="phone" required />
+          </div>
+          <div class="form-group">
+            <label for="product">Taste</label>
+            <select name="product">
+              <option>Classique</option>
+              <option>Lemon</option>
+              <option>Lotus</option>
+              <option>Strawberry</option>
+              <option>Mango</option>
+              <option>Blueberry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="size">Size</label>
+            <select name="size">
+              <option>Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" name="quantity" value="1" min="1" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="button" onclick="addAnotherProduct()">Add Another Product</button>
+          <button type="button" onclick="removeLastProduct()">Remove Last Product</button>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn">Submit Order</button>
+        </div>
+      </form>
+      <p id="thankYouMsg" style="display:none; color:green; font-weight:bold; margin-top:15px;">Your order is sent. We will call you back to confirm it.</p>
+    </div>
+  </div>
+
+  <script>
+    function openForm(product) {
+      document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    function addAnotherProduct() {
+      const container = document.getElementById('productContainer');
+      const original = container.children[2].cloneNode(true);
+      const size = container.children[3].cloneNode(true);
+      const quantity = container.children[4].cloneNode(true);
+      container.appendChild(original);
+      container.appendChild(size);
+      container.appendChild(quantity);
+    }
+
+    function removeLastProduct() {
+      const container = document.getElementById('productContainer');
+      if (container.children.length > 5) {
+        container.removeChild(container.lastElementChild);
+        container.removeChild(container.lastElementChild);
+        container.removeChild(container.lastElementChild);
+      }
+    }
+
+    function showThankYouMessage() {
+      document.getElementById('thankYouMsg').style.display = 'block';
+      return true;
+    }
+  </script>
+</body>
+
+</html>
